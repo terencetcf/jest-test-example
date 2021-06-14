@@ -1,10 +1,10 @@
-## Simple Jest test example
+# Simple Jest test example
 
 This is a simple jest test project example with typescript and github actions CI.
 
 All unit tests must passed before pull request can be merged.
 
-### Setup
+## Setup
 
 ```bash
 $ yarn install
