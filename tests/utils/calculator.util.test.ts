@@ -16,4 +16,12 @@ describe("calculator", () => {
       expect(actual).toEqual(1);
     });
   });
+
+  describe("multiply", () => {
+    it("should return the correct result of a * b", () => {
+      const actual = calculator.multiply(3, 2);
+
+      expect(actual).toEqual(6);
+    });
+  });
 });
