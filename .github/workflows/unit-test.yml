@@ -34,3 +34,9 @@ jobs:
 
       - name: Test
         run: yarn test:coverage
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: test-coverage-report
+          path: test-coverage/*
+          retention-days: 1
