@@ -1,5 +1,4 @@
-name: Github Action test
-
+name: Contains a string check
 on:
     workflow_dispatch:
 
@@ -18,5 +17,5 @@ jobs:
                   echo "::set-output name=invoke-lambda-response::$output"
 
             - name: verify invoke lambda response
-              if: "${{ !contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, '\"statusCode\": 400') }}"
+              if: "${{ !contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, '\"statusCode\": 200') }}"
               run: exit 1
