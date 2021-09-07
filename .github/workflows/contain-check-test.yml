@@ -12,7 +12,7 @@ jobs:
             - name: Invoke lambda function
               id: invoke-lambda-step
               run: |
-                  output='"statusCode": 400,'
+                  output='"statusCode": 200,'
                   echo "$output"
                   echo "::set-output name=invoke-lambda-response::$output"
 
