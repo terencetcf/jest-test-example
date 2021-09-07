@@ -12,7 +12,13 @@ jobs:
             - name: Invoke lambda function
               id: invoke-lambda-step
               run: |
-                  output='"statusCode": 200,'
+                  output=`Serverless: Load command config
+                            Serverless: Load command config:credentials
+                            Serverless: Load command cofig:tabcompletion
+                            {
+                                "statusCode": 200,
+                                "body": "{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createIdentitySchemaTables1630649239197\"}"
+                            }`
                   echo "$output"
                   echo "::set-output name=invoke-lambda-response::$output"
 
