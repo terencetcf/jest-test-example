@@ -1,0 +1,22 @@
+name: Github Action test
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            ENVIRONMENT: sandbox
+
+        steps:
+            - name: Invoke lambda function
+              id: invoke-lambda-step
+              run: |
+                  output='"statusCode": 400,'
+                  echo "$output"
+                  echo "::set-output name=invoke-lambda-response::$output"
+
+            - name: verify invoke lambda response
+              if: contains('${{ steps.invoke-lambda-step.outputs.invoke-lambda-response }}', '"statusCode": 200')
+              run: exit 1
