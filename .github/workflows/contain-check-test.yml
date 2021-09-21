@@ -12,11 +12,11 @@ jobs:
             - name: Invoke lambda function
               id: invoke-lambda-step
               run: |
-                  output=`Serverless: Load command interactiveCli
+                  output="Serverless: Load command interactiveCli
                             {
-                                "statusCode": 200,
-                                "body": "{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}"
-                            }`
+                                \"statusCode\": 200,
+                                \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
+                            }"
                   echo "$output"
                   echo "::set-output name=invoke-lambda-response::$output"
 
