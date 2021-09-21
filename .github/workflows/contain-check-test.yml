@@ -14,7 +14,7 @@ jobs:
               run: |
                 output="Serverless: Load command interactiveCli
                             {
-                                \"statusCode\": 400,
+                                \"statusCode\": 200,
                                 \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
                             }"
                 output="${output//$'\n'/, }"
