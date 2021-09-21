@@ -13,57 +13,6 @@ jobs:
               id: invoke-lambda-step
               run: |
                   output=`Serverless: Load command interactiveCli
-                            Serverless: Load command config
-                            Serverless: Load command config:credentials
-                            Serverless: Load command config:tabcompletion
-                            Serverless: Load command config:tabcompletion:install
-                            Serverless: Load command config:tabcompletion:uninstall
-                            Serverless: Load command create
-                            Serverless: Load command install
-                            Serverless: Load command package
-                            Serverless: Load command deploy
-                            Serverless: Load command deploy:function
-                            Serverless: Load command deploy:list
-                            Serverless: Load command deploy:list:functions
-                            Serverless: Load command invoke
-                            Serverless: Load command invoke:local
-                            Serverless: Load command info
-                            Serverless: Load command logs
-                            Serverless: Load command metrics
-                            Serverless: Load command print
-                            Serverless: Load command remove
-                            Serverless: Load command rollback
-                            Serverless: Load command rollback:function
-                            Serverless: Load command slstats
-                            Serverless: Load command plugin
-                            Serverless: Load command plugin
-                            Serverless: Load command plugin:install
-                            Serverless: Load command plugin
-                            Serverless: Load command plugin:uninstall
-                            Serverless: Load command plugin
-                            Serverless: Load command plugin:list
-                            Serverless: Load command plugin
-                            Serverless: Load command plugin:search
-                            Serverless: Load command config
-                            Serverless: Load command config:credentials
-                            Serverless: Load command upgrade
-                            Serverless: Load command uninstall
-                            Serverless: Load command login
-                            Serverless: Load command logout
-                            Serverless: Load command generate-event
-                            Serverless: Load command test
-                            Serverless: Load command dashboard
-                            Serverless: Load command output
-                            Serverless: Load command output:get
-                            Serverless: Load command output:list
-                            Serverless: Load command param
-                            Serverless: Load command param:get
-                            Serverless: Load command param:list
-                            Serverless: Load command studio
-                            Serverless: Skipping variables resolution with old resolver (new resolver reported no more variables to resolve)
-                            Serverless: Deprecation warning: Support for "package.include" and "package.exclude" will be removed with next major release. Please use "package.patterns" instead
-                                        More Info: https://www.serverless.com/framework/docs/deprecations/#NEW_PACKAGE_PATTERNS
-                            Serverless: Invoke invoke
                             {
                                 "statusCode": 200,
                                 "body": "{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}"
