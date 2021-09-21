@@ -12,16 +12,17 @@ jobs:
             - name: Invoke lambda function
               id: invoke-lambda-step
               run: |
-                  output="Serverless: Load command interactiveCli
+                output="Serverless: Load command interactiveCli
                             {
                                 \"statusCode\": 200,
                                 \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
                             }"
-
-                  echo "::set-output name=invoke-lambda-response::$output"
+                output="${output//$'\n'/, }"
+                output="${output// / }" 
+                echo "::set-output name=invoke-lambda-response::$output"
 
             - name: verify invoke lambda response
               if: "${{ !contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, 'run was successfully invoked') }}"
               run: |
-                    echo "${{ steps.invoke-lambda-step.outputs.invoke-lambda-response }}"
-                    exit 1
+                echo "${{ steps.invoke-lambda-step.outputs.invoke-lambda-response }}"
+                exit 1
