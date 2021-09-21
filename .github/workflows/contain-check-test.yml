@@ -18,7 +18,6 @@ jobs:
                                 \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
                             }"
                 output="${output//$'\n'/, }"
-                output="${output// / }" 
                 echo "::set-output name=invoke-lambda-response::$output"
 
             - name: verify invoke lambda response
