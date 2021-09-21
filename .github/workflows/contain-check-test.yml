@@ -15,7 +15,7 @@ jobs:
                 output="Serverless: Load command interactiveCli
                             {
                                 \"statusCode\": 200,
-                                \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"No migrations are pending.\"}\"
+                                \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
                             }"
                 output="${output//$'\n'/, }"
                 echo "::set-output name=invoke-lambda-response::$output"
