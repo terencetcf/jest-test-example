@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x]
 
     steps:
       - name: Checkout
@@ -37,11 +37,10 @@ jobs:
         continue-on-error: true
 
       - name: Report code coverage
-        uses: zgosalvez/github-actions-report-lcov@v1
+        uses: ChicagoFlutter/lcov-cop@v1.0.2
         with:
-          coverage-files: test-coverage/lcov.*.info
-          minimum-coverage: 100
-          artifact-name: code-coverage-report
+          path: './test-coverage/lcov.info'
+          min_coverage: 100
 
       - uses: actions/upload-artifact@v2
         with:
