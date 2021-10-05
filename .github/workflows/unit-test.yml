@@ -47,7 +47,7 @@ jobs:
           echo "Current test coverage is $output%"
 
       - name: Check test coverage percentage
-        if: ${{ steps.record_code_coverage.outputs.percentage < env.TEST_COVERAGE_THRESHOLD }}
+        if: ${{ Number(steps.record_code_coverage.outputs.percentage) < env.TEST_COVERAGE_THRESHOLD }}
         run: |
           echo "Current test coverage is ${{ steps.record_code_coverage.outputs.percentage }}%"
           echo "Test coverage must not below the minimum threshold of ${{ env.TEST_COVERAGE_THRESHOLD }}%"
