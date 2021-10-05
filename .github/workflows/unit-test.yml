@@ -42,6 +42,7 @@ jobs:
         id: record_code_coverage
         run: |
           output="$(npx coverage-percentage ./test-coverage/lcov.info --lcov)"
+          output=$(printf '%.2f' $output)
           echo "::set-output name=percentage::$output"
           echo "Current test coverage is $output%"
 
