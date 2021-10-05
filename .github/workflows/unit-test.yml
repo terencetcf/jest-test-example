@@ -43,12 +43,12 @@ jobs:
         run: |
           output="$(npx coverage-percentage ./test-coverage/lcov.info --lcov)"
           echo "::set-output name=percentage::$output"
-          echo "$output"
+          echo "Current test coverage is $output%"
 
       - name: Check test coverage percentage
         if: ${{ steps.record_code_coverage.outputs.percentage < env.TEST_COVERAGE_THRESHOLD }}
         run: |
-          echo "Test coverage percentage is ${{ steps.record_code_coverage.outputs.percentage }}%"
+          echo "Current test coverage is ${{ steps.record_code_coverage.outputs.percentage }}%"
           echo "Test coverage must not below the minimum threshold of ${{ env.TEST_COVERAGE_THRESHOLD }}%"
           exit 1
 
