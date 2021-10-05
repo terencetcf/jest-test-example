@@ -1,0 +1,25 @@
+name: Contains a string check
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            ENVIRONMENT: sandbox
+
+        steps:
+            - name: Invoke lambda function
+              id: invoke-lambda-step
+              run: |
+                output="Serverless: Load command interactiveCli
+                            {
+                                \"statusCode\": 200,
+                                \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
+                            }"
+                output="${output//$'\n'/, }"
+                echo "::set-output name=invoke-lambda-response::$output"
+
+            - name: verify invoke lambda response
+              if: '${{ !contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, ''"statusCode": 200'') || contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, ''No migrations are pending'') }}'
+              run: exit 1
