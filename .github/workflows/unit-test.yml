@@ -36,11 +36,18 @@ jobs:
         run: yarn test:coverage
         continue-on-error: true
 
-      - name: Report code coverage
-        uses: ChicagoFlutter/lcov-cop@v1.0.2
-        with:
-          path: './test-coverage/lcov.info'
-          min_coverage: 100
+      - name: Record code coverage
+        id: record_code_coverage
+        run: |
+          output="$(npx coverage-percentage ./test-coverage/lcov.info --lcov)"
+          echo "::set-output name=percentage::$output"
+
+      - name: Check test coverage percentage
+        if: ${{ steps.record_code_coverage.outputs.percentage < 90 }}
+        run: |
+          echo "Test coverage percentage is ${{ steps.record_code_coverage.outputs.percentage }}%"
+          echo "Test coverage must not below the minimum threshold of ${{ secrets.TEST_COVERAGE_THRESHOLD }}%"
+          exit 1
 
       - uses: actions/upload-artifact@v2
         with:
