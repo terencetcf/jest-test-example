@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: "Set Up Node"
+      - name: 'Set Up Node'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -26,7 +26,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: "**/node_modules"
+          path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install packages
@@ -34,6 +34,14 @@ jobs:
 
       - name: Test
         run: yarn test:coverage
+        continue-on-error: true
+
+      - name: Report code coverage
+        uses: zgosalvez/github-actions-report-lcov@v1
+        with:
+          coverage-files: test-coverage/lcov.*.info
+          minimum-coverage: 100
+          artifact-name: code-coverage-report
 
       - uses: actions/upload-artifact@v2
         with:
