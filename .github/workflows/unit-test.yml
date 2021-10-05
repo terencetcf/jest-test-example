@@ -10,7 +10,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
-      TEST_COVERAGE_THRESHOLD: 60
+      TEST_COVERAGE_THRESHOLD: 80
 
     strategy:
       matrix:
@@ -43,6 +43,7 @@ jobs:
         run: |
           output="$(npx coverage-percentage ./test-coverage/lcov.info --lcov)"
           echo "::set-output name=percentage::$output"
+          echo "$output"
 
       - name: Check test coverage percentage
         if: ${{ steps.record_code_coverage.outputs.percentage < env.TEST_COVERAGE_THRESHOLD }}
