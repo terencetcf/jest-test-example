@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      TEST_COVERAGE_THRESHOLD: 60
 
     strategy:
       matrix:
@@ -43,10 +45,10 @@ jobs:
           echo "::set-output name=percentage::$output"
 
       - name: Check test coverage percentage
-        if: ${{ steps.record_code_coverage.outputs.percentage < 90 }}
+        if: ${{ steps.record_code_coverage.outputs.percentage < env.TEST_COVERAGE_THRESHOLD }}
         run: |
           echo "Test coverage percentage is ${{ steps.record_code_coverage.outputs.percentage }}%"
-          echo "Test coverage must not below the minimum threshold of ${{ secrets.TEST_COVERAGE_THRESHOLD }}%"
+          echo "Test coverage must not below the minimum threshold of ${{ env.TEST_COVERAGE_THRESHOLD }}%"
           exit 1
 
       - uses: actions/upload-artifact@v2
