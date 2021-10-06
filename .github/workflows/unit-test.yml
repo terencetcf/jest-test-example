@@ -45,7 +45,7 @@ jobs:
           echo "Current test coverage is $output%"
 
       - name: Check test coverage
-        uses: terencetcf/github-actions-lcov-minimum-coverage-checker@v1.5
+        uses: terencetcf/github-actions-lcov-minimum-coverage-checker@v1.2.0
         with:
           coverage-file: test-coverage/lcov.info
           minimum-coverage: 90
