@@ -12,13 +12,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: "Set Up Node"
+      - name: 'Set Up Node'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -26,7 +26,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: "**/node_modules"
+          path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install packages
@@ -34,6 +34,31 @@ jobs:
 
       - name: Test
         run: yarn test:coverage
+        continue-on-error: true
+
+      - name: Record code coverage
+        id: record_code_coverage
+        run: |
+          output="$(npx coverage-percentage ./test-coverage/lcov.info --lcov)"
+          output=$(printf '%.f' $output)
+          echo "::set-output name=percentage::$output"
+          echo "Current test coverage is $output%"
+
+      - name: Check test coverage
+        uses: terencetcf/github-actions-lcov-minimum-coverage-checker@v1.5
+        with:
+          coverage-file: test-coverage/lcov.info
+          minimum-coverage: 90
+
+      # - name: Check test coverage percentage
+      #   env:
+      #     TEST_COVERAGE_THRESHOLD: ${{ 75 }}
+      #     CURRENT_TEST_COVERAGE: ${{ steps.record_code_coverage.outputs.percentage }}
+      #   if: env.CURRENT_TEST_COVERAGE < env.TEST_COVERAGE_THRESHOLD
+      #   run: |
+      #     echo "Current test coverage is ${{ env.CURRENT_TEST_COVERAGE }}%"
+      #     echo "Test coverage must not below the minimum threshold of ${{ env.TEST_COVERAGE_THRESHOLD }}%"
+      #     exit 1
 
       - uses: actions/upload-artifact@v2
         with:
