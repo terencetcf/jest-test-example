@@ -10,3 +10,10 @@ With the github action CI, the selected github status checks must pass before pu
 $ yarn install
 $ yarn test
 ```
+
+To run test with coverage results:
+
+```bash
+$ yarn install
+$ yarn test
+```
