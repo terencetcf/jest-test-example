@@ -6,6 +6,12 @@
   "repository": "https://github.com/terencetcf/jest-test-example.git",
   "author": "Terence Tai",
   "license": "MIT",
+  "keywords": [
+    "jest",
+    "testing",
+    "unit test",
+    "typescript"
+  ],
   "private": true,
   "scripts": {
     "test": "jest",
