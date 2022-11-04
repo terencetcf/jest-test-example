@@ -1,25 +1,39 @@
 name: Contains a string check
 on:
-    workflow_dispatch:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        description: 'Environment to deploy'
+        type: environment
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        env:
-            ENVIRONMENT: sandbox
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: sandbox
 
-        steps:
-            - name: Invoke lambda function
-              id: invoke-lambda-step
-              run: |
-                output="Serverless: Load command interactiveCli
-                            {
-                                \"statusCode\": 200,
-                                \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
-                            }"
-                output="${output//$'\n'/, }"
-                echo "::set-output name=invoke-lambda-response::$output"
+    steps:
+      - name: Invoke lambda function
+        id: invoke-lambda-step
+        run: |
+          output="Serverless: Load command interactiveCli
+                      {
+                          \"statusCode\": 200,
+                          \"body\": \"{\"message\":\"run was successfully invoked.\",\"response\":\"Ran migration scripts: createNotificationSchemaTables1631674527341\"}\"
+                      }"
+          output="${output//$'\n'/, }"
+          echo "::set-output name=invoke-lambda-response::$output"
 
-            - name: verify invoke lambda response
-              if: '${{ !contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, ''"statusCode": 200'') || contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, ''No migrations are pending'') }}'
-              run: exit 1
+      - name: verify invoke lambda response
+        if: '${{ !contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, ''"statusCode": 200'') || contains(steps.invoke-lambda-step.outputs.invoke-lambda-response, ''No migrations are pending'') }}'
+        run: exit 1
+
+      - name: Add job summary
+        run: |
+          DEPLOYED_ENV=`echo ${{ inputs.environment }} | sed 's/./&/g'`
+
+          echo "### Deploy to $DEPLOYED_ENV completed! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
+          echo "- Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Environment: $DEPLOYED_ENV" >> $GITHUB_STEP_SUMMARY
