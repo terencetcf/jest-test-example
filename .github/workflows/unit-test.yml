@@ -50,7 +50,7 @@ jobs:
           coverage-file: test-coverage/lcov.info
           minimum-coverage: 90
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: test-coverage-report
           path: test-coverage/*
